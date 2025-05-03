@@ -18,10 +18,8 @@
     p { font-size: 1.2em; margin: 0.8em 0; line-height: 1.4; }
     .icons { margin: 1.5em 0; font-size: 1.8em; letter-spacing: 8px; }
     .footer { margin-top: 2em; font-style: italic; font-size: 1em; }
-    /* Bottoni */
-    .btn { position: absolute; top: 20px; padding: 10px 20px; font-size: 1em; border: none; border-radius: 5px; cursor: pointer; }
-    #share-btn { right: 120px; }
-    #download-btn { right: 20px; }
+    /* Bottone condivisione */
+    #share-btn { position: absolute; top: 20px; right: 20px; padding: 10px 20px; font-size: 1em; border: none; border-radius: 5px; cursor: pointer; }
     /* Animazioni */
     @keyframes zoomIn { 0% { transform: translate(-50%, -50%) scale(0); opacity: 0; } 60% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
     .show .container { animation: zoomIn 0.8s ease-out forwards; }
@@ -31,10 +29,9 @@
   </style>
 </head>
 <body class="romantico">
-  <button id="share-btn" class="btn">Condividi</button>
-  <button id="download-btn" class="btn">Scarica</button>
+  <button id="share-btn">Condividi</button>
   <div class="overlay"></div>
-  <div class="container" id="invite-content">
+  <div class="container">
     <h1>RIMANETE CON NOI!</h1>
     <p>Testimoni & damigelle, siete ufficialmente invitati<br> a trascorrere una notte con noi nella location del matrimonio:</p>
     <p><strong>Le Case – Ristorante & Resort</strong></p>
@@ -44,25 +41,12 @@
   </div>
   <div id="fireworks"></div>
   <script>
-    const btnShare = document.getElementById('share-btn');
-    const btnDownload = document.getElementById('download-btn');
+    const btn = document.getElementById('share-btn');
     const body = document.body;
     const fireworks = document.getElementById('fireworks');
-    btnShare.addEventListener('click', () => {
+    btn.addEventListener('click', () => {
       body.classList.add('show');
       launchFireworks();
-    });
-    btnDownload.addEventListener('click', () => {
-      const content = document.documentElement.outerHTML;
-      const blob = new Blob([content], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'invito_matrimonio.html';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
     });
     function launchFireworks() {
       for (let i = 0; i < 40; i++) {
