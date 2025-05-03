@@ -6,100 +6,81 @@
   <title>Invito Digitale - Soggiorno Matrimonio</title>
   <style>
     body { margin: 0; padding: 0; font-family: 'Georgia', serif; overflow: hidden; }
-    /* Sfondo cielo stellato estivo */
-    body.stellato {
-      /* Sfondo con la tua immagine stellata */
-      background: url('sfondo stellato.jpg') no-repeat center center/cover;
-      color: #fff;
-    }
-    /* Overlay semitrasparente per contrasto */
-    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,20,0.6); pointer-events: none; }
+    body.stellato { background: #000; color: #fff; } /* sfondo nero per contrasto generale */
+    /* Overlay semitrasparente */
+    .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); pointer-events:none; }
     /* Contenitore invito */
-    .container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); background: rgba(0,0,30,0.7); padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.5); opacity: 0; }
-    h1 { font-family: 'Georgia', serif; font-style: italic; font-size: 2.8em; margin-bottom: 0.3em; letter-spacing: 2px; color: #fff; }
-    p { font-family: 'Georgia', serif; font-style: italic; font-size: 1.2em; margin: 0.8em 0; line-height: 1.4; color: #fff; }
-    .icons { margin: 1.5em 0; font-size: 1.8em; letter-spacing: 8px; }
-    .footer { margin-top: 2em; font-family: 'Georgia', serif; font-style: italic; font-size: 1em; color: #ddd; }
-    /* Pulsante regalo centrato e visibile */
-    #share-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 15px 25px;
-      font-family: 'Georgia', serif;
-      font-style: italic;
-      font-size: 1.1em;
-      color: #fff;
-      background: #000;
-      border: 2px solid #fff;
-      border-radius: 30px;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .container {
+      position: absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0);
+      width: 80%; max-width: 600px; height: auto;
+      background: transparent; padding: 0; border-radius:20px; overflow:hidden;
+      opacity:0;
     }
-    #share-btn:hover { background: #222; }
-    /* Animazione zoom */
-    @keyframes zoomIn { 0% { transform: translate(-50%, -50%) scale(0); opacity: 0; } 60% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
-    .show .container { animation: zoomIn 0.8s ease-out forwards; }
-    /* Fireworks elementari */
-    #fireworks { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
-    .particle { position: absolute; width: 6px; height: 6px; background: radial-gradient(circle, #FFD700 0%, rgba(255,215,0,0) 70%); opacity: 0; border-radius: 50%; }
+    /* Immagine di sfondo all’interno della container */
+    .container #bg-img {
+      position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;
+      z-index:0;
+    }
+    /* Contenuto testuale sopra l’immagine */
+    .content {
+      position: relative; z-index:1;
+      background: rgba(0,0,30,0.6); padding: 30px;
+      text-align:center; box-shadow:0 8px 20px rgba(0,0,0,0.5);
+    }
+    h1 { font-style:italic; font-size:2.8em; margin-bottom:0.3em; color:#fff; }
+    p { font-style:italic; font-size:1.2em; line-height:1.4; color:#fff; margin:0.5em 0; }
+    .icons { margin:1.5em 0; font-size:1.8em; }
+    .footer { font-style:italic; font-size:1em; color:#ddd; }
+    /* Pulsante centrato */
+    #share-btn {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      padding:15px 25px; font-style:italic; font-size:1.1em;
+      color:#fff; background:#000; border:2px solid #fff; border-radius:30px;
+      cursor:pointer; text-transform:uppercase; letter-spacing:1px; z-index:2;
+    }
+    #share-btn:hover { background:#222; }
+    @keyframes zoomIn {0%{transform:translate(-50%,-50%) scale(0);opacity:0}60%{transform:translate(-50%,-50%) scale(1.1);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:1}}
+    .show .container { animation:zoomIn 0.8s ease-out forwards; }
+    /* Fireworks */
+    #fireworks { position:fixed; top:0; left:0; width:100%;height:100%;pointer-events:none; }
+    .particle { position:absolute; width:6px; height:6px; background:radial-gradient(circle,#FFD700 0%,rgba(255,215,0,0)70%);border-radius:50%; }
   </style>
 </head>
 <body class="stellato">
-  <!-- Pulsante regalo che mostra invito e riproduce musica -->
   <button id="share-btn">Apri il tuo regalo</button>
   <div class="overlay"></div>
   <div class="container">
-    <h1>RIMANETE CON NOI!</h1>
-    <p>Cari Testimoni & Damigelle<br>non vi ringrazieremo mai abbastanza!<br>.. ma intanto per cominciare,<br>abbiamo pensato di proseguire con voi<br>i festeggiamenti anche "by night"<br>Quindi non preoccupatevi di niente:<br>portate costume e pigiama<br>per voi e per i vostri consorti<br>P.S. colazione e spa incluse</p>
-    <div class="icons">🎁🥂🌙✨💫</div>
-    <div class="footer">Con immenso affetto, Sara &amp; Alessandro</div>
+    <img id="bg-img" src="sfondo-nuovo.jpg" alt="Sfondo stellato">
+    <div class="content">
+      <h1>RIMANETE CON NOI!</h1>
+      <p>Cari Testimoni & Damigelle<br>non vi ringrazieremo mai abbastanza!<br>.. ma intanto per cominciare,<br>abbiamo pensato di proseguire con voi<br>i festeggiamenti anche "by night"<br>Quindi non preoccupatevi di niente:<br>portate costume e pigiama<br>per voi e per i vostri consorti<br>P.S. colazione e spa incluse</p>
+      <div class="icons">🎁🥂🌙✨💫</div>
+      <div class="footer">Con immenso affetto, Sara &amp; Alessandro</div>
+    </div>
   </div>
   <div id="fireworks"></div>
-  <!-- Elemento audio per musica di sottofondo: sostituisci 'musica.mp3' con il tuo file -->
-  <audio id="bg-music" loop src="musica.mp3"></audio>
+  <audio id="bg-music" loop src="A Sky Full of Stars.mp3"></audio>
   <script>
     const btn = document.getElementById('share-btn');
     const body = document.body;
     const fireworks = document.getElementById('fireworks');
     const audio = document.getElementById('bg-music');
-
-    // Al click mostra invito, avvia musica e fuochi d'artificio
     btn.addEventListener('click', () => {
       audio.play().catch(() => console.warn('Playback disabilitato.'));
       body.classList.add('show');
       launchFireworks();
     });
-
-    /**
-     * Funzione per lanciare fuochi d'artificio di particelle
-     */
     function launchFireworks() {
-      const numParticles = 60;
-      const minDistance = 100;
-      const maxDistance = 250;
-      const minDuration = 1500;
-      const maxDuration = 3000;
-      for (let i = 0; i < numParticles; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        particle.style.left = `${x}px`;
-        particle.style.top = `${y}px`;
-        fireworks.appendChild(particle);
-        const angle = Math.random() * 2 * Math.PI;
-        const distance = minDistance + Math.random() * (maxDistance - minDistance);
-        const dx = Math.cos(angle) * distance;
-        const dy = Math.sin(angle) * distance;
-        const duration = minDuration + Math.random() * (maxDuration - minDuration);
-        particle.animate([
-          { transform: 'translate(0,0)', opacity: 1 },
-          { transform: `translate(${dx}px,${dy}px)`, opacity: 0 }
-        ], { duration, easing: 'ease-out' });
-        setTimeout(() => particle.remove(), maxDuration);
+      const numParticles=60, minDist=100, maxDist=250, minDur=1500, maxDur=3000;
+      for(let i=0;i<numParticles;i++){
+        const p=document.createElement('div');p.classList.add('particle');
+        const x=Math.random()*window.innerWidth, y=Math.random()*window.innerHeight;
+        p.style.left=`${x}px`;p.style.top=`${y}px`;fireworks.appendChild(p);
+        const angle=Math.random()*2*Math.PI, dist=minDist+Math.random()*(maxDist-minDist);
+        const dx=Math.cos(angle)*dist, dy=Math.sin(angle)*dist;
+        const dur=minDur+Math.random()*(maxDur-minDur);
+        p.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${dx}px,${dy}px)`,opacity:0}],{duration:dur,easing:'ease-out'});
+        setTimeout(()=>p.remove(),maxDur);
       }
     }
   </script>
