@@ -19,8 +19,6 @@
     /* Pulsante regalo centrato */
     #share-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 15px 25px; font-size: 1.1em; color: #fff; background: rgba(255,255,255,0.2); border: 2px solid #fff; border-radius: 30px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
     #share-btn:hover { background: rgba(255,255,255,0.3); }
-    /* Input file musica nascosto */
-    #music-input { display: none; }
     /* Animazione zoom */
     @keyframes zoomIn { 0% { transform: translate(-50%, -50%) scale(0); opacity: 0; } 60% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
     .show .container { animation: zoomIn 0.8s ease-out forwards; }
@@ -30,34 +28,26 @@
   </style>
 </head>
 <body class="stellato">
-  <!-- Pulsante regalo che apre il file picker nascosto e poi mostra invito -->
+  <!-- Pulsante regalo che mostra invito e riproduce musica -->
   <button id="share-btn">Apri il tuo regalo</button>
-  <!-- input file nascosto, non incluso nel layout -->
-  <input type="file" id="music-input" accept="audio/*" style="display:none;">
   <div class="overlay"></div>
   <div class="container">
     <h1>RIMANETE CON NOI!</h1>
-    <p>Cari Testimoni & Damigelle<br>non vi ringrazieremo mai abbastanza!<br>.. ma intanto per cominciare,<br>abbiamo pensato di proseguire con voi<br>i festeggiamenti anche "by night"<br>Quindi non preoccupatevi di niente:<br>portate costume e pigiama<br>per voi e per i vostri consorti<br>P.S. colazione e spa incluse</p>
+    <p>Cari Testimoni & Damigelle<br>non vi ringrazieremo mai abbastanza!<br>.. ma intanto per cominciare,<br>abbiamo pensato di proseguire con voi<br>i festeggiamenti anche "by night"<br>Quindi non preoccupatevi di niente:<br>portate costume e pigiama<br>per voi e per i vostri consorti<br></p>
     <div class="icons">🥂🌙✨💫</div>
     <div class="footer">Con immenso affetto, Sara &amp; Alessandro</div>
   </div>
   <div id="fireworks"></div>
-  <audio id="bg-music" loop></audio>
+  <!-- Elemento audio per musica di sottofondo: sostituisci 'musica.mp3' con il tuo file -->
+  <audio id="bg-music" loop src="A Sky Full of Stars.mp3"></audio>
   <script>
     const btn = document.getElementById('share-btn');
-    const musicInput = document.getElementById('music-input');
     const body = document.body;
     const fireworks = document.getElementById('fireworks');
     const audio = document.getElementById('bg-music');
 
-    // Clic sul pulsante apre il file picker nascosto
-    btn.addEventListener('click', () => musicInput.click());
-
-    // Dopo selezione file, mostra invito e suona musica
-    musicInput.addEventListener('change', (e) => {
-      const file = e.target.files[0]; if (!file) return;
-      const url = URL.createObjectURL(file);
-      audio.src = url;
+    // Al click mostra invito, avvia musica e fuochi d'artificio
+    btn.addEventListener('click', () => {
       audio.play().catch(() => console.warn('Playback disabilitato.'));
       body.classList.add('show');
       launchFireworks();
