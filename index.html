@@ -5,94 +5,158 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invito Digitale - Soggiorno Matrimonio</title>
   <style>
+    /* Import font Caladea */
     @import url('https://fonts.googleapis.com/css2?family=Caladea:ital@0;1&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Baguet+Script&display=swap');
-    body { margin: 0; padding: 0; font-family: 'Baguet Script', cursive; overflow: hidden; }
-    body.stellato { background: #000; color: #fff; }
-    /* Overlay più opaco */
-    .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); pointer-events:none; }
+     @import url('https://fonts.googleapis.com/css2?family=Monotype+Corsiva&display=swap')
+    /* Monotype Corsiva via @font-face locale - sostituisci con il tuo file .ttf */
+    @font-face {
+      font-family: 'Monotype Corsiva';
+      src: url('MonotypeCorsiva.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* Default font Monotype Corsiva */
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Monotype Corsiva', cursive;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+    }
+    /* Overlay più trasparente per far vedere lo sfondo stellato */
+    .overlay {
+      position: fixed; top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.7);
+      pointer-events: none;
+    }
     /* Contenitore invito */
     .container {
-      position: absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0);
+      position: absolute;
+      top:50%; left:50%; transform:translate(-50%,-50%) scale(0);
       width: 80%; max-width: 600px;
-      background: transparent; opacity:0;
+      background: transparent;
+      opacity:0;
     }
-    /* Immagine di sfondo all’interno della container */
+    /* Sfondo stellato interno */
     .container #bg-img {
-      position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:0;
+      position: absolute; top:0; left:0;
+      width:100%; height:100%; object-fit:cover;
+      z-index:0;
     }
-    /* Contenuto testuale sopra l’immagine, background meno trasparente */
+    /* Blocco testo */
     .content {
       position: relative; z-index:1;
-      background: rgba(0,0,30,0.8); padding: 30px;
-      text-align:center; box-shadow:0 8px 20px rgba(0,0,0,0.7);
+      background: rgba(0,0,30,0.6);
+      padding: 30px; text-align:center;
+      box-shadow:0 8px 20px rgba(0,0,0,0.7);
     }
+    /* Titolo in Caladea */
     h1 {
-      font-family: 'Caladea', serif; font-style:italic;
-      font-size:2.8em; margin-bottom:0.3em; color:#fff;
+      font-family: 'Caladea', serif;
+      font-style: italic;
+      font-size: 2.8em;
+      margin-bottom: 0.3em;
+      color: #fff;
     }
+    /* Testo e footer in Monotype Corsiva */
     p, .footer {
-      font-family: 'Baguet Script', cursive; font-style:italic;
-      font-size:1.2em; line-height:1.4; color:#fff; margin:0.5em 0;
+      font-family: 'Monotype Corsiva', cursive;
+      font-size: 1.2em;
+      line-height: 1.4;
+      color: #fff;
+      margin: 0.5em 0;
     }
-    .icons { margin:1.5em 0; font-size:1.8em; }
-    .footer { font-size:1em; color:#ddd; }
-    /* Pulsante centrato e nascosto al click */
+    .icons { margin: 1.5em 0; font-size: 1.8em; }
+    .footer { font-size: 1em; color: #ddd; }
+    /* Pulsante in Caladea e sparisce al click */
     #share-btn {
-      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      padding:15px 25px; font-family:'Baguet Script', cursive; font-size:1.1em;
-      color:#fff; background:#000; border:2px solid #fff; border-radius:30px;
-      cursor:pointer; text-transform:uppercase; letter-spacing:1px; z-index:2;
+      position: absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      padding: 15px 25px;
+      font-family: 'Caladea', serif;
+      font-style: italic;
+      font-size: 1.1em;
+      color: #fff;
+      background: #000;
+      border: 2px solid #fff;
+      border-radius: 30px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      z-index: 2;
     }
     .show #share-btn { display: none; }
-    #share-btn:hover { background:#222; }
-    @keyframes zoomIn {0%{transform:translate(-50%,-50%) scale(0);opacity:0}60%{transform:translate(-50%,-50%) scale(1.1);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:1}}
-    .show .container { animation:zoomIn 0.8s ease-out forwards; }
+    #share-btn:hover { background: #222; }
+    /* Animazione zoom */
+    @keyframes zoomIn {
+      0% { transform: translate(-50%,-50%) scale(0); opacity: 0; }
+      60% { transform: translate(-50%,-50%) scale(1.1); opacity: 1; }
+      100% { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+    }
+    .show .container { animation: zoomIn 0.8s ease-out forwards; }
     /* Fireworks fissi */
-    #fireworks { position:fixed; top:0; left:0; width:100%;height:100%;pointer-events:none; }
-    .particle { position:absolute; width:6px; height:6px;
-      background:radial-gradient(circle,#FFD700 0%,rgba(255,215,0,0)70%);border-radius:50%;
+    #fireworks { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; }
+    .particle {
+      position:absolute;
+      width:6px; height:6px;
+      background: radial-gradient(circle, #FFD700 0%, rgba(255,215,0,0) 70%);
+      border-radius:50%;
     }
   </style>
 </head>
-<body class="stellato">
+<body>
   <button id="share-btn">Apri il tuo regalo 🎁</button>
   <div class="overlay"></div>
   <div class="container">
     <img id="bg-img" src="sfondo stellato.jpg" alt="Sfondo stellato">
     <div class="content">
       <h1>RIMANETE CON NOI!</h1>
-      <p>Cari Testimoni & Damigelle<br>non vi ringrazieremo mai abbastanza!<br>.. ma intanto per cominciare,<br>abbiamo pensato di proseguire con voi<br>i festeggiamenti anche "by night"<br>Quindi non preoccupatevi di niente:<br>portate costume e pigiama<br>per voi e per i vostri consorti<br>P.S. colazione e spa incluse</p>
+      <p>Cari Testimoni &amp; Damigelle<br>non vi ringrazieremo mai abbastanza!<br>.. ma intanto per cominciare,<br>abbiamo pensato di proseguire con voi<br>i festeggiamenti anche "by night"<br>Quindi non preoccupatevi di niente:<br>portate costume e pigiama<br>per voi e per i vostri consorti<br>P.S. colazione e spa incluse</p>
       <div class="icons">🎁🥂🌙✨💫</div>
       <div class="footer">Con immenso affetto, Sara &amp; Alessandro</div>
     </div>
   </div>
   <div id="fireworks"></div>
-  <audio id="bg-music" loop src="A Sky Full of Stars.mp3"></audio>
+  <!-- Preload e play immediato al click -->
+  <audio id="bg-music" preload="auto" src="A Sky Full of Stars.mp3"></audio>
   <script>
     const btn = document.getElementById('share-btn');
     const body = document.body;
     const fireworks = document.getElementById('fireworks');
     const audio = document.getElementById('bg-music');
     btn.addEventListener('click', () => {
+      // Avvia subito la musica
+      audio.currentTime = 0;
       audio.play().catch(() => console.warn('Playback disabilitato.'));
+      // Mostra invito e fuochi d'artificio
       body.classList.add('show');
       launchFireworks();
     });
     function launchFireworks() {
-      const numParticles=100, minDist=100, maxDist=250, minDur=3000, maxDur=5000;
-      for(let i=0;i<numParticles;i++){
-        const p=document.createElement('div'); p.classList.add('particle');
-        const x=Math.random()*window.innerWidth, y=Math.random()*window.innerHeight;
-        p.style.left=`${x}px`; p.style.top=`${y}px`; fireworks.appendChild(p);
-        const angle=Math.random()*2*Math.PI, dist=minDist+Math.random()*(maxDist-minDist);
-        const dx=Math.cos(angle)*dist, dy=Math.sin(angle)*dist;
-        const dur=minDur+Math.random()*(maxDur-minDur);
+      const numParticles = 100;
+      const minDist = 100;
+      const maxDist = 250;
+      const minDur = 3000;
+      const maxDur = 5000;
+      for (let i = 0; i < numParticles; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        fireworks.appendChild(p);
+        const angle = Math.random() * 2 * Math.PI;
+        const dist = minDist + Math.random() * (maxDist - minDist);
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist;
+        const dur = minDur + Math.random() * (maxDur - minDur);
         p.animate([
-          {transform:'translate(0,0)',opacity:1},
-          {transform:`translate(${dx}px,${dy}px)`,opacity:0}
-        ],{duration:dur,easing:'ease-out'});
-        // Non rimuoviamo le particelle: rimangono visibili dopo l'animazione
+          { transform: 'translate(0,0)', opacity: 1 },
+          { transform: `translate(${dx}px,${dy}px)`, opacity: 0 }
+        ], { duration: dur, easing: 'ease-out' });
+        // Le particelle rimangono dopo l'esplosione
       }
     }
   </script>
